@@ -1,0 +1,441 @@
+project:
+  name: nanobot
+  root: .
+  source_of_truth: .
+  description: Lightweight personal AI assistant framework with Python runtime, channel integrations, WebUI, bridge service, docs, tests, and deployment tooling.
+
+modules:
+  - id: acp-version
+    path: .acp
+    kind: governance
+    description: ACP profile and version declaration for nanobot.
+    entry_files:
+      - .acp/version.yaml
+
+  - id: acp-kernel
+    path: .acp/kernel
+    kind: governance
+    description: Append-only Request / Plan / Change lineage.
+    entry_files:
+      - .acp/kernel/requests/
+      - .acp/kernel/plans/
+      - .acp/kernel/changes/
+
+  - id: acp-support
+    path: .acp/support
+    kind: guidance
+    description: Bootstrap guidance, project map, load rules, and change policy.
+    entry_files:
+      - .acp/support/AGENT.md
+      - .acp/support/PROJECT_MAP.yaml
+      - .acp/support/LOAD_RULES.yaml
+      - .acp/support/CHANGE_POLICY.yaml
+
+  - id: acp-capability
+    path: .acp/capability
+    kind: semantic
+    description: Capability and slice definitions for semantic routing.
+    entry_files:
+      - .acp/capability/capabilities.yaml
+
+  - id: protocol
+    path: acp-protocol
+    kind: protocol
+    description: ACP consumer package copied into this reference project; read-only protocol authority.
+    entry_files:
+      - acp-protocol/acp_agent_playbook.yaml
+
+  - id: package-root
+    path: .
+    kind: project-root
+    description: Python packaging, repository docs, Docker entrypoints, and top-level project metadata.
+    entry_files:
+      - pyproject.toml
+      - README.md
+      - Dockerfile
+      - docker-compose.yml
+      - entrypoint.sh
+      - CLAUDE.md
+      - CONTRIBUTING.md
+      - SECURITY.md
+
+  - id: python-agent
+    path: nanobot/agent
+    kind: runtime
+    description: Core agent loop, runner, context, memory, hooks, skills, subagents, and autocompaction.
+    entry_files:
+      - nanobot/agent/loop.py
+      - nanobot/agent/runner.py
+      - nanobot/agent/context.py
+      - nanobot/agent/memory.py
+      - nanobot/agent/skills.py
+
+  - id: python-config
+    path: nanobot/config
+    kind: configuration
+    description: Pydantic config schema, loader, path management, and migration behavior.
+    entry_files:
+      - nanobot/config/schema.py
+      - nanobot/config/loader.py
+      - nanobot/config/paths.py
+
+  - id: python-providers
+    path: nanobot/providers
+    kind: provider-layer
+    description: LLM, image, transcription, and OpenAI-compatible provider adapters.
+    entry_files:
+      - nanobot/providers/base.py
+      - nanobot/providers/factory.py
+      - nanobot/providers/registry.py
+      - nanobot/providers/openai_compat_provider.py
+      - nanobot/providers/anthropic_provider.py
+
+  - id: python-channels
+    path: nanobot/channels
+    kind: integrations
+    description: Chat platform integrations and channel manager/registry.
+    entry_files:
+      - nanobot/channels/base.py
+      - nanobot/channels/manager.py
+      - nanobot/channels/registry.py
+      - nanobot/channels/websocket.py
+      - nanobot/channels/slack.py
+      - nanobot/channels/telegram.py
+      - nanobot/channels/discord.py
+
+  - id: python-api
+    path: nanobot/api
+    kind: api
+    description: OpenAI-compatible API server and streaming/file upload surfaces.
+    entry_files:
+      - nanobot/api/server.py
+
+  - id: python-cli
+    path: nanobot/cli
+    kind: cli
+    description: Typer command surface, setup wizard, model prompts, and stream helpers.
+    entry_files:
+      - nanobot/cli/commands.py
+      - nanobot/cli/onboard.py
+      - nanobot/cli/models.py
+      - nanobot/cli/stream.py
+
+  - id: python-services
+    path: nanobot
+    kind: service-modules
+    description: Event bus, command router, cron, heartbeat, session persistence, security, and shared utilities.
+    entry_files:
+      - nanobot/bus/events.py
+      - nanobot/bus/queue.py
+      - nanobot/command/router.py
+      - nanobot/command/builtin.py
+      - nanobot/cron/service.py
+      - nanobot/heartbeat/service.py
+      - nanobot/session/manager.py
+      - nanobot/security/network.py
+      - nanobot/utils/document.py
+      - nanobot/utils/runtime.py
+
+  - id: templates-and-skills
+    path: nanobot
+    kind: runtime-assets
+    description: Packaged prompt/context templates and built-in skill documentation.
+    entry_files:
+      - nanobot/templates/
+      - nanobot/skills/README.md
+
+  - id: webui
+    path: webui
+    kind: frontend
+    description: React 18 + Vite + TypeScript + Tailwind WebUI for chat sessions and streaming.
+    entry_files:
+      - webui/package.json
+      - webui/vite.config.ts
+      - webui/src/main.tsx
+      - webui/src/App.tsx
+
+  - id: webui-components
+    path: webui/src/components
+    kind: frontend-components
+    description: Chat list, chat pane, composer, message rendering, dialogs, badges, and UI widgets.
+    entry_files:
+      - webui/src/components/ChatPane.tsx
+      - webui/src/components/Composer.tsx
+      - webui/src/components/MessageList.tsx
+      - webui/src/components/MessageBubble.tsx
+      - webui/src/components/Sidebar.tsx
+
+  - id: webui-client
+    path: webui/src
+    kind: frontend-client
+    description: Client API wrappers, streaming hooks, session hooks, i18n, formatting, media, and workers.
+    entry_files:
+      - webui/src/lib/nanobot-client.ts
+      - webui/src/lib/api.ts
+      - webui/src/hooks/useNanobotStream.ts
+      - webui/src/hooks/useSessions.ts
+      - webui/src/i18n/config.ts
+      - webui/src/workers/imageEncode.worker.ts
+
+  - id: bridge
+    path: bridge
+    kind: bridge-service
+    description: TypeScript bridge and WhatsApp integration service packaged into the Python wheel.
+    entry_files:
+      - bridge/package.json
+      - bridge/tsconfig.json
+      - bridge/src/index.ts
+      - bridge/src/server.ts
+      - bridge/src/whatsapp.ts
+
+  - id: tests
+    path: tests
+    kind: tests
+    description: Python test suite covering runtime, providers, channels, security, CLI, tools, sessions, and APIs.
+    entry_files:
+      - tests/agent/
+      - tests/channels/
+      - tests/providers/
+      - tests/security/
+      - tests/tools/
+      - tests/test_api_stream.py
+      - tests/test_openai_api.py
+
+  - id: webui-tests
+    path: webui/src/tests
+    kind: frontend-tests
+    description: Vitest coverage for WebUI layout, streaming, client API, sessions, i18n, and components.
+    entry_files:
+      - webui/src/tests/
+
+  - id: docs
+    path: docs
+    kind: documentation
+    description: User and developer guides for CLI, chat apps, deployment, memory, API, WebSocket, image generation, and configuration.
+    entry_files:
+      - docs/README.md
+      - docs/quick-start.md
+      - docs/configuration.md
+      - docs/chat-apps.md
+      - docs/openai-api.md
+      - docs/websocket.md
+      - docs/deployment.md
+
+  - id: ci
+    path: .github
+    kind: automation
+    description: GitHub issue templates and CI workflow.
+    entry_files:
+      - .github/workflows/ci.yml
+      - .github/ISSUE_TEMPLATE/
+
+capability_routes:
+  project-foundation:
+    slice_routes:
+      _root:
+        primary_modules:
+          - acp-version
+          - acp-kernel
+          - acp-support
+          - acp-capability
+          - protocol
+          - package-root
+          - ci
+        first_contact:
+          - .acp/version.yaml
+          - .acp/support/AGENT.md
+          - pyproject.toml
+          - README.md
+          - .github/workflows/ci.yml
+  python-agent-runtime:
+    slice_routes:
+      loop:
+        primary_modules:
+          - python-agent
+        source_modules:
+          - python-services
+        first_contact:
+          - nanobot/agent/loop.py
+          - nanobot/agent/runner.py
+          - nanobot/agent/context.py
+      skills-and-commands:
+        primary_modules:
+          - python-agent
+          - python-services
+          - templates-and-skills
+        first_contact:
+          - nanobot/agent/skills.py
+          - nanobot/command/router.py
+          - nanobot/command/builtin.py
+          - nanobot/skills/README.md
+      services:
+        primary_modules:
+          - python-services
+        source_modules:
+          - python-agent
+        first_contact:
+          - nanobot/cron/service.py
+          - nanobot/heartbeat/service.py
+          - nanobot/bus/events.py
+          - nanobot/bus/queue.py
+  llm-provider-layer:
+    slice_routes:
+      adapters:
+        primary_modules:
+          - python-providers
+        source_modules:
+          - python-config
+        first_contact:
+          - nanobot/providers/base.py
+          - nanobot/providers/factory.py
+          - nanobot/providers/registry.py
+          - nanobot/providers/openai_compat_provider.py
+      config:
+        primary_modules:
+          - python-config
+          - python-cli
+        source_modules:
+          - python-providers
+        first_contact:
+          - nanobot/config/schema.py
+          - nanobot/config/loader.py
+          - nanobot/config/paths.py
+          - nanobot/cli/onboard.py
+  channel-integrations:
+    slice_routes:
+      manager:
+        primary_modules:
+          - python-channels
+        source_modules:
+          - python-services
+        first_contact:
+          - nanobot/channels/base.py
+          - nanobot/channels/manager.py
+          - nanobot/channels/registry.py
+      platforms:
+        primary_modules:
+          - python-channels
+        source_modules:
+          - python-services
+          - python-config
+        first_contact:
+          - nanobot/channels/slack.py
+          - nanobot/channels/telegram.py
+          - nanobot/channels/discord.py
+          - nanobot/channels/feishu.py
+          - nanobot/channels/websocket.py
+  api-and-websocket:
+    slice_routes:
+      api-server:
+        primary_modules:
+          - python-api
+          - python-channels
+        source_modules:
+          - python-agent
+          - python-services
+        first_contact:
+          - nanobot/api/server.py
+          - nanobot/channels/websocket.py
+      client-contract:
+        primary_modules:
+          - webui-client
+        source_modules:
+          - python-api
+        first_contact:
+          - webui/src/lib/nanobot-client.ts
+          - webui/src/lib/api.ts
+          - webui/src/hooks/useNanobotStream.ts
+          - webui/src/hooks/useSessions.ts
+  webui:
+    slice_routes:
+      shell:
+        primary_modules:
+          - webui
+        source_modules:
+          - webui-components
+          - webui-client
+        first_contact:
+          - webui/src/App.tsx
+          - webui/src/main.tsx
+          - webui/src/providers/ClientProvider.tsx
+          - webui/src/globals.css
+      chat-components:
+        primary_modules:
+          - webui-components
+        source_modules:
+          - webui-client
+        first_contact:
+          - webui/src/components/ChatPane.tsx
+          - webui/src/components/Composer.tsx
+          - webui/src/components/MessageList.tsx
+          - webui/src/components/MessageBubble.tsx
+          - webui/src/components/Sidebar.tsx
+      client-state:
+        primary_modules:
+          - webui-client
+          - webui-tests
+        source_modules:
+          - webui-components
+        first_contact:
+          - webui/src/hooks/useNanobotStream.ts
+          - webui/src/hooks/useSessions.ts
+          - webui/src/lib/nanobot-client.ts
+          - webui/src/i18n/config.ts
+          - webui/src/workers/imageEncode.worker.ts
+  bridge-service:
+    slice_routes:
+      bridge-runtime:
+        primary_modules:
+          - bridge
+        first_contact:
+          - bridge/src/index.ts
+          - bridge/src/server.ts
+          - bridge/src/whatsapp.ts
+          - bridge/src/types.d.ts
+  persistence-and-memory:
+    slice_routes:
+      session-memory:
+        primary_modules:
+          - python-agent
+          - python-services
+        source_modules:
+          - python-config
+        first_contact:
+          - nanobot/session/manager.py
+          - nanobot/agent/memory.py
+          - nanobot/agent/autocompact.py
+          - nanobot/utils/gitstore.py
+          - nanobot/utils/document.py
+  security-and-tools:
+    slice_routes:
+      security:
+        primary_modules:
+          - python-services
+          - tests
+        source_modules:
+          - python-agent
+        first_contact:
+          - nanobot/security/network.py
+          - nanobot/utils/path.py
+          - tests/security/test_security_network.py
+          - tests/tools/test_exec_security.py
+  docs-and-deployment:
+    slice_routes:
+      docs:
+        primary_modules:
+          - docs
+          - package-root
+        first_contact:
+          - docs/README.md
+          - docs/quick-start.md
+          - docs/configuration.md
+          - README.md
+      deployment:
+        primary_modules:
+          - package-root
+          - docs
+        first_contact:
+          - Dockerfile
+          - docker-compose.yml
+          - entrypoint.sh
+          - docs/deployment.md

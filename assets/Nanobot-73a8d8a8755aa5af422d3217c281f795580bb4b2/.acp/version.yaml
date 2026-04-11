@@ -1,0 +1,7 @@
+acp_version: "1.0.0"
+project_name: nanobot
+profiles:
+  kernel: required
+  capability: enabled
+  support: enabled
+

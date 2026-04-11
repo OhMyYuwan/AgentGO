@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent GO! 教程</title>
+    <link rel="stylesheet" href="./styles.css?v=2" />
+  </head>
+  <body>
+    <div class="progress" aria-hidden="true">
+      <span id="reading-progress"></span>
+    </div>
+
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="Agent GO! 教程首页">
+        <span class="brand-mark">AG</span>
+        <span>
+          <strong>Agent GO!</strong>
+          <small>教程</small>
+        </span>
+      </a>
+      <nav class="topnav" aria-label="章节快捷导航">
+      </nav>
+    </header>
+
+    <section class="welcome" id="welcome-page" aria-labelledby="welcome-title">
+      <figure class="hero-banner" aria-label="Agent GO! 横幅">
+        <img data-banner-image alt="Agent GO!" />
+      </figure>
+      <div class="welcome-copy">
+        <p class="eyebrow">Welcome</p>
+        <h1 id="welcome-title">Agent GO! 学习路径</h1>
+        <p>
+          从 Agentic Coding 的入口开始，逐步进入 Skills、MCP、Agent 框架和项目级协同。
+        </p>
+        <div class="welcome-actions">
+          <button class="primary-action" type="button" id="start-reading">开始阅读</button>
+        </div>
+      </div>
+      <section class="project-stats" aria-label="项目统计">
+        <a class="stat-card" href="https://github.com/OhMyYuwan/AgentGO/stargazers" target="_blank" rel="noreferrer">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" /></svg>
+          </span>
+          <span>
+            <span class="stat-value" data-stat="stars">--</span>
+            <span class="stat-label">Stars</span>
+          </span>
+        </a>
+        <a class="stat-card" href="https://github.com/OhMyYuwan/AgentGO/forks" target="_blank" rel="noreferrer">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 4a3 3 0 0 0-1 5.8V14a4 4 0 0 0 4 4h1a3 3 0 1 0 0-2h-1a2 2 0 0 1-2-2V9.8A3 3 0 0 0 7 4Zm10 0a3 3 0 0 0-1 5.8V11a2 2 0 0 1-2 2h-2v2h2a4 4 0 0 0 4-4V9.8A3 3 0 0 0 17 4Z" /></svg>
+          </span>
+          <span>
+            <span class="stat-value" data-stat="forks">--</span>
+            <span class="stat-label">Forks</span>
+          </span>
+        </a>
+        <a class="stat-card" href="https://github.com/OhMyYuwan/AgentGO/graphs/contributors" target="_blank" rel="noreferrer">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8.5 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM2 20a6 6 0 0 1 12 0v1H2v-1Zm12.5 1v-1a7.9 7.9 0 0 0-1.2-4.2A5.5 5.5 0 0 1 22 20v1h-7.5Z" /></svg>
+          </span>
+          <span>
+            <span class="stat-value" data-stat="contributors">--</span>
+            <span class="stat-label">Contributors</span>
+          </span>
+        </a>
+        <a class="stat-card" href="https://github.com/OhMyYuwan/AgentGO" target="_blank" rel="noreferrer">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Zm10 3.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" /></svg>
+          </span>
+          <span>
+            <span class="stat-value" data-stat="watch">--</span>
+            <span class="stat-label">Watch</span>
+          </span>
+        </a>
+      </section>
+      <section class="welcome-toc" aria-labelledby="welcome-toc-title">
+        <div class="welcome-toc-heading">
+          <p class="eyebrow">Course Map</p>
+          <h2 id="welcome-toc-title">章节目录</h2>
+        </div>
+        <div class="welcome-toc-list" id="welcome-toc-list"></div>
+      </section>
+      <section class="welcome-readme article" aria-labelledby="welcome-readme-title">
+        <div class="article-body" id="welcome-readme">
+          <h2 id="welcome-readme-title">README</h2>
+          <p>正在加载 README...</p>
+        </div>
+      </section>
+    </section>
+
+    <main class="layout is-content-hidden" id="content">
+      <aside class="sidebar" aria-label="教程目录">
+        <div class="sidebar-inner">
+          <p class="eyebrow">Contents</p>
+          <h1>Agent GO! 学习路径</h1>
+          <p class="intro">
+            从 Agentic Coding 的入口开始，逐步进入 Skills、MCP、Agent 框架和项目级协同。
+          </p>
+          <div class="chapter-list" id="chapter-list"></div>
+        </div>
+      </aside>
+
+      <section class="reader" aria-live="polite">
+        <div class="reader-toolbar">
+          <button class="icon-button" id="previous-chapter" type="button" aria-label="上一章">←</button>
+          <div>
+            <span class="toolbar-label">当前章节</span>
+            <strong id="current-title">第一章 筑基</strong>
+          </div>
+          <button class="icon-button" id="next-chapter" type="button" aria-label="下一章">→</button>
+        </div>
+        <article class="article" id="article"></article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="footer-brand" href="https://github.com/OhMyYuwan" target="_blank" rel="noreferrer">YuwanLab</a>
+      <a href="mailto:Yuw4n0@gmail.com">Yuw4n0@gmail.com</a>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

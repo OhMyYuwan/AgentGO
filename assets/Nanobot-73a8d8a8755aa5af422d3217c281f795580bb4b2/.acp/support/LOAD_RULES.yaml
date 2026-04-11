@@ -1,0 +1,371 @@
+bootstrap:
+  entrypoint: .acp/version.yaml
+  sequence:
+    - .acp/support/AGENT.md
+    - .acp/support/PROJECT_MAP.yaml
+    - .acp/support/LOAD_RULES.yaml
+    - .acp/support/CHANGE_POLICY.yaml
+    - .acp/capability/capabilities.yaml
+
+loading:
+  kernel_history: on_demand
+  broad_scan: forbidden_by_default
+  preferred_routing: capability_first
+
+minimal_context:
+  - .acp/version.yaml
+  - .acp/support/AGENT.md
+
+rules:
+  forbidden_paths:
+    - .git/
+    - acp-protocol/
+    - webui/node_modules/
+    - webui/dist/
+    - bridge/node_modules/
+    - bridge/dist/
+    - build/
+    - dist/
+    - "*.egg-info/"
+    - "**/__pycache__/"
+    - ".pytest_cache/"
+    - ".ruff_cache/"
+    - ".mypy_cache/"
+    - ".venv/"
+    - "venv/"
+
+  protected_paths:
+    - .acp/version.yaml
+    - .acp/support/AGENT.md
+    - .acp/support/PROJECT_MAP.yaml
+    - .acp/support/LOAD_RULES.yaml
+    - .acp/support/CHANGE_POLICY.yaml
+    - .acp/capability/capabilities.yaml
+    - AGENTS.md
+    - pyproject.toml
+    - Dockerfile
+    - docker-compose.yml
+    - entrypoint.sh
+    - webui/package.json
+    - webui/package-lock.json
+    - webui/vite.config.ts
+    - webui/tsconfig.json
+    - bridge/package.json
+    - bridge/tsconfig.json
+    - .github/workflows/
+
+  private_paths:
+    - .acp/kernel/
+
+  route_expansion:
+    project-foundation:
+      _root:
+        start_with:
+          - .acp/version.yaml
+          - .acp/support/AGENT.md
+          - .acp/support/PROJECT_MAP.yaml
+          - pyproject.toml
+          - README.md
+        expand_when:
+          - editing ACP support or capability routing
+          - changing package metadata, CI, or Docker entrypoints
+
+    python-agent-runtime:
+      loop:
+        start_with:
+          - nanobot/agent/loop.py
+          - nanobot/agent/runner.py
+          - nanobot/agent/context.py
+        expand_when:
+          - provider, channel, tool, or memory behavior is affected
+      skills:
+        start_with:
+          - nanobot/agent/skills.py
+          - nanobot/skills/README.md
+          - nanobot/templates/
+        expand_when:
+          - changing packaged prompt or skill assets
+
+    llm-provider-layer:
+      providers:
+        start_with:
+          - nanobot/providers/base.py
+          - nanobot/providers/factory.py
+          - nanobot/providers/registry.py
+        expand_when:
+          - adding or changing provider adapters
+      config:
+        start_with:
+          - nanobot/config/schema.py
+          - nanobot/config/loader.py
+          - nanobot/config/paths.py
+        expand_when:
+          - provider config shape, defaults, or migration changes
+
+    channel-integrations:
+      core:
+        start_with:
+          - nanobot/channels/base.py
+          - nanobot/channels/manager.py
+          - nanobot/channels/registry.py
+        expand_when:
+          - channel lifecycle or routing changes
+      platform:
+        start_with:
+          - nanobot/channels/
+        expand_when:
+          - editing a specific platform integration
+
+    api-and-websocket:
+      api:
+        start_with:
+          - nanobot/api/server.py
+          - nanobot/channels/websocket.py
+        expand_when:
+          - changing streaming, upload, session, or OpenAI-compatible API behavior
+
+    webui:
+      shell:
+        start_with:
+          - webui/src/App.tsx
+          - webui/src/main.tsx
+          - webui/src/globals.css
+        expand_when:
+          - global layout, provider, theme, or app bootstrap changes
+      components:
+        start_with:
+          - webui/src/components/
+          - webui/src/hooks/
+          - webui/src/lib/
+        expand_when:
+          - chat rendering, composer, sessions, streaming, media, or i18n changes
+
+    bridge-service:
+      bridge:
+        start_with:
+          - bridge/src/index.ts
+          - bridge/src/server.ts
+          - bridge/src/whatsapp.ts
+        expand_when:
+          - bridge runtime, protocol, or WhatsApp behavior changes
+
+    persistence-and-memory:
+      memory:
+        start_with:
+          - nanobot/agent/memory.py
+          - nanobot/session/manager.py
+          - nanobot/utils/gitstore.py
+        expand_when:
+          - session persistence, compaction, or memory semantics change
+
+    security-and-tools:
+      security:
+        start_with:
+          - nanobot/security/network.py
+          - nanobot/utils/path.py
+          - tests/security/
+          - tests/tools/
+        expand_when:
+          - filesystem, network, sandbox, command execution, or tool validation changes
+
+    docs-and-deployment:
+      docs:
+        start_with:
+          - docs/README.md
+          - docs/quick-start.md
+          - docs/configuration.md
+          - docs/deployment.md
+        expand_when:
+          - changing documented CLI, config, deployment, or API behavior
+
+expand_when:
+  project-foundation/_root:
+    include:
+      - .acp/version.yaml
+      - .acp/support/AGENT.md
+      - pyproject.toml
+      - README.md
+      - .github/workflows/ci.yml
+    then_expand:
+      - acp-version
+      - acp-support
+      - package-root
+      - ci
+
+  python-agent-runtime/loop:
+    include:
+      - nanobot/agent/loop.py
+      - nanobot/agent/runner.py
+      - nanobot/agent/context.py
+    then_expand:
+      - python-agent
+      - python-services
+
+  python-agent-runtime/skills-and-commands:
+    include:
+      - nanobot/agent/skills.py
+      - nanobot/command/router.py
+      - nanobot/command/builtin.py
+      - nanobot/skills/README.md
+    then_expand:
+      - python-agent
+      - python-services
+      - templates-and-skills
+
+  python-agent-runtime/services:
+    include:
+      - nanobot/cron/service.py
+      - nanobot/heartbeat/service.py
+      - nanobot/bus/events.py
+      - nanobot/bus/queue.py
+    then_expand:
+      - python-services
+      - python-agent
+
+  llm-provider-layer/adapters:
+    include:
+      - nanobot/providers/base.py
+      - nanobot/providers/factory.py
+      - nanobot/providers/registry.py
+      - nanobot/providers/openai_compat_provider.py
+    then_expand:
+      - python-providers
+      - python-config
+
+  llm-provider-layer/config:
+    include:
+      - nanobot/config/schema.py
+      - nanobot/config/loader.py
+      - nanobot/config/paths.py
+      - nanobot/cli/onboard.py
+    then_expand:
+      - python-config
+      - python-cli
+      - python-providers
+
+  channel-integrations/manager:
+    include:
+      - nanobot/channels/base.py
+      - nanobot/channels/manager.py
+      - nanobot/channels/registry.py
+    then_expand:
+      - python-channels
+      - python-services
+
+  channel-integrations/platforms:
+    include:
+      - nanobot/channels/slack.py
+      - nanobot/channels/telegram.py
+      - nanobot/channels/discord.py
+      - nanobot/channels/feishu.py
+      - nanobot/channels/websocket.py
+    then_expand:
+      - python-channels
+      - python-services
+      - python-config
+
+  api-and-websocket/api-server:
+    include:
+      - nanobot/api/server.py
+      - nanobot/channels/websocket.py
+    then_expand:
+      - python-api
+      - python-channels
+      - python-agent
+      - python-services
+
+  api-and-websocket/client-contract:
+    include:
+      - webui/src/lib/nanobot-client.ts
+      - webui/src/lib/api.ts
+      - webui/src/hooks/useNanobotStream.ts
+      - webui/src/hooks/useSessions.ts
+    then_expand:
+      - webui-client
+      - python-api
+
+  webui/shell:
+    include:
+      - webui/src/App.tsx
+      - webui/src/main.tsx
+      - webui/src/providers/ClientProvider.tsx
+      - webui/src/globals.css
+    then_expand:
+      - webui
+      - webui-components
+      - webui-client
+
+  webui/chat-components:
+    include:
+      - webui/src/components/ChatPane.tsx
+      - webui/src/components/Composer.tsx
+      - webui/src/components/MessageList.tsx
+      - webui/src/components/MessageBubble.tsx
+      - webui/src/components/Sidebar.tsx
+    then_expand:
+      - webui-components
+      - webui-client
+
+  webui/client-state:
+    include:
+      - webui/src/hooks/useNanobotStream.ts
+      - webui/src/hooks/useSessions.ts
+      - webui/src/lib/nanobot-client.ts
+      - webui/src/i18n/config.ts
+      - webui/src/workers/imageEncode.worker.ts
+    then_expand:
+      - webui-client
+      - webui-tests
+      - webui-components
+
+  bridge-service/bridge-runtime:
+    include:
+      - bridge/src/index.ts
+      - bridge/src/server.ts
+      - bridge/src/whatsapp.ts
+      - bridge/src/types.d.ts
+    then_expand:
+      - bridge
+
+  persistence-and-memory/session-memory:
+    include:
+      - nanobot/session/manager.py
+      - nanobot/agent/memory.py
+      - nanobot/agent/autocompact.py
+      - nanobot/utils/gitstore.py
+      - nanobot/utils/document.py
+    then_expand:
+      - python-agent
+      - python-services
+      - python-config
+
+  security-and-tools/security:
+    include:
+      - nanobot/security/network.py
+      - nanobot/utils/path.py
+      - tests/security/test_security_network.py
+      - tests/tools/test_exec_security.py
+    then_expand:
+      - python-services
+      - tests
+      - python-agent
+
+  docs-and-deployment/docs:
+    include:
+      - docs/README.md
+      - docs/quick-start.md
+      - docs/configuration.md
+      - README.md
+    then_expand:
+      - docs
+      - package-root
+
+  docs-and-deployment/deployment:
+    include:
+      - Dockerfile
+      - docker-compose.yml
+      - entrypoint.sh
+      - docs/deployment.md
+    then_expand:
+      - package-root
+      - docs

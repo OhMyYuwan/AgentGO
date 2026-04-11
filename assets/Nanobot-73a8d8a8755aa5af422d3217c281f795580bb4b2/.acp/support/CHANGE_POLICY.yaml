@@ -1,0 +1,103 @@
+auto_allow:
+  - operation: create_or_update_kernel_object
+    paths:
+      - .acp/kernel/requests/REQ-*.yaml
+      - .acp/kernel/plans/PLN-*.md
+      - .acp/kernel/changes/CHG-*.yaml
+
+  - operation: edit
+    paths:
+      - nanobot/**/*.py
+      - tests/**/*.py
+      - webui/src/**/*.ts
+      - webui/src/**/*.tsx
+      - webui/src/**/*.css
+      - bridge/src/**/*.ts
+      - docs/*.md
+
+  - operation: create
+    paths:
+      - nanobot/**/*.py
+      - tests/**/*.py
+      - webui/src/**/*
+      - bridge/src/**/*
+      - docs/*.md
+
+require_confirmation:
+  - operation: edit
+    paths:
+      - .acp/version.yaml
+      - .acp/support/AGENT.md
+      - .acp/support/PROJECT_MAP.yaml
+      - .acp/support/LOAD_RULES.yaml
+      - .acp/support/CHANGE_POLICY.yaml
+      - .acp/capability/capabilities.yaml
+      - AGENTS.md
+    reason: ACP support files steer routing for future work.
+
+  - operation: edit
+    paths:
+      - pyproject.toml
+      - Dockerfile
+      - docker-compose.yml
+      - entrypoint.sh
+      - webui/package.json
+      - webui/package-lock.json
+      - webui/vite.config.ts
+      - webui/tsconfig.json
+      - bridge/package.json
+      - bridge/tsconfig.json
+      - .github/workflows/**
+    reason: Build, package, CI, and deployment files affect the whole project.
+
+  - operation: edit_cross_capability
+    description: Edits that span more than one capability in capabilities.yaml.
+    reason: Cross-surface work should be explicitly planned.
+
+  - operation: install_dependency
+    description: Adds or upgrades dependencies in Python, WebUI, or bridge package manifests.
+    reason: Dependency changes affect security, packaging, and onboarding.
+
+forbidden:
+  - operation: any
+    paths:
+      - .git/
+      - acp-protocol/
+    reason: Git internals and protocol distribution are not project source.
+
+  - operation: rewrite_kernel_history
+    description: Editing or deleting an existing REQ / PLN / CHG record after creation.
+    reason: ACP kernel history is append-only.
+
+  - operation: edit_runtime_user_config
+    paths:
+      - "~/.nanobot/**"
+    reason: User runtime config is local operational state, not repository source.
+
+  - operation: bypass_safety
+    description: Using --no-verify, force-push, or hard reset to silence checks.
+
+high_risk:
+  - operation: edit
+    paths:
+      - nanobot/security/**
+      - nanobot/utils/path.py
+      - tests/security/**
+      - tests/tools/**
+    reason: Security and tool execution changes require careful validation.
+
+  - operation: edit
+    paths:
+      - nanobot/agent/loop.py
+      - nanobot/agent/runner.py
+      - nanobot/providers/base.py
+      - nanobot/channels/base.py
+      - nanobot/api/server.py
+    reason: Core runtime and public API surfaces affect most behavior.
+
+  - operation: upgrade_major
+    description: Major upgrades for Python, Typer, Pydantic, OpenAI/Anthropic SDKs, React, Vite, TypeScript, or channel SDKs.
+    reason: Major dependencies cross runtime, API, WebUI, and integrations.
+
+default: require_confirmation
+

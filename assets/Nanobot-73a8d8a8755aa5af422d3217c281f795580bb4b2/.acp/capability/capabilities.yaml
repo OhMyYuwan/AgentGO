@@ -1,0 +1,259 @@
+capabilities:
+  - id: project-foundation
+    name: Project Foundation
+    summary: ACP governance, package metadata, root docs, CI, Docker, and repository-wide tooling.
+    slices:
+      - id: _root
+        summary: ACP files, root metadata, README, Docker entrypoints, and CI.
+        owns:
+          - ACP bootstrap files, support guidance, capability routing, and kernel lineage.
+          - Root package metadata, repository-level docs, Docker entrypoints, and CI workflow routing.
+        route_here_when: Work changes governance, packaging, CI, or repository-level behavior.
+        bridge_when: Root changes force Python runtime, WebUI, or bridge code changes.
+        primary_paths:
+          - .acp/
+          - AGENTS.md
+          - pyproject.toml
+          - README.md
+          - Dockerfile
+          - docker-compose.yml
+          - entrypoint.sh
+          - .github/
+
+  - id: python-agent-runtime
+    name: Python Agent Runtime
+    summary: Core agent loop, runner, context assembly, hooks, skills, subagents, templates, command routing, cron, and heartbeat.
+    slices:
+      - id: loop
+        summary: Agent execution lifecycle, context, runner, hooks, task interruption, and progress.
+        owns:
+          - Agent turn execution lifecycle, runner orchestration, context assembly, hooks, and task interruption.
+          - Runtime progress handling, autocompaction entry points, and core loop behavior.
+        route_here_when: Work changes turn execution, tool calls, context assembly, compaction, hooks, or runner semantics.
+        bridge_when: Provider, channel, API, or security contracts change.
+        primary_paths:
+          - nanobot/agent/loop.py
+          - nanobot/agent/runner.py
+          - nanobot/agent/context.py
+          - nanobot/agent/hook.py
+          - nanobot/agent/autocompact.py
+      - id: skills-and-commands
+        summary: Skill loading, built-in commands, prompt templates, and packaged runtime assets.
+        owns:
+          - Built-in skill discovery/loading and packaged skill documentation.
+          - Slash command dispatch and prompt/context template assets.
+        route_here_when: Work changes skill discovery, command dispatch, templates, or packaged assistant assets.
+        bridge_when: New command behavior requires channel rendering or API exposure.
+        primary_paths:
+          - nanobot/agent/skills.py
+          - nanobot/command/
+          - nanobot/templates/
+          - nanobot/skills/
+      - id: services
+        summary: Cron, heartbeat, event bus, and runtime utilities.
+        owns:
+          - Background cron and heartbeat services.
+          - Event bus contracts and shared runtime utility behavior.
+        route_here_when: Work changes background services, event delivery, or shared runtime helpers.
+        bridge_when: Service changes affect channel delivery or API streaming.
+        primary_paths:
+          - nanobot/cron/
+          - nanobot/heartbeat/
+          - nanobot/bus/
+          - nanobot/utils/runtime.py
+
+  - id: llm-provider-layer
+    name: LLM Provider Layer
+    summary: Provider adapters, factory/registry, image generation, transcription, and provider configuration.
+    slices:
+      - id: adapters
+        summary: Provider implementations for OpenAI-compatible, Anthropic, Azure, Bedrock, GitHub Copilot, and related services.
+        owns:
+          - Provider request/response mapping, retries, streaming, reasoning, and tool-call adaptation.
+          - Image generation and transcription provider adapters.
+        route_here_when: Work changes model request/response mapping, retries, tool calls, streaming, reasoning, image generation, or transcription.
+        bridge_when: Runtime loop, config schema, or tests must change for new provider behavior.
+        primary_paths:
+          - nanobot/providers/
+      - id: config
+        summary: Provider-related config schema, loader, path defaults, and onboarding data.
+        owns:
+          - Runtime configuration schema, loader behavior, path defaults, and migrations.
+          - Provider onboarding prompts and model/provider defaults.
+        route_here_when: Work changes config shape, defaults, migration, or setup prompts.
+        bridge_when: Config changes require provider, CLI, or docs updates.
+        primary_paths:
+          - nanobot/config/
+          - nanobot/cli/onboard.py
+
+  - id: channel-integrations
+    name: Channel Integrations
+    summary: Discord, Slack, Telegram, Feishu, WeCom, Weixin, WhatsApp, Matrix, QQ, email, DingTalk, WebSocket, and channel manager behavior.
+    slices:
+      - id: manager
+        summary: Shared channel base class, manager, registry, and lifecycle.
+        owns:
+          - Channel base contracts, manager lifecycle, registry, and startup/shutdown behavior.
+          - Cross-channel message routing and shared delivery semantics.
+        route_here_when: Work changes how channels are loaded, started, stopped, or receive/send messages.
+        bridge_when: Runtime loop or config schema changes.
+        primary_paths:
+          - nanobot/channels/base.py
+          - nanobot/channels/manager.py
+          - nanobot/channels/registry.py
+      - id: platforms
+        summary: Individual platform adapters and message rendering behavior.
+        owns:
+          - Platform-specific adapters for chat apps and transport-specific message rendering.
+          - Platform media handling, threading, replies, reactions, and acknowledgement behavior.
+        route_here_when: Work changes one or more chat platform integrations.
+        bridge_when: Platform behavior needs new runtime event, config, or test fixtures.
+        primary_paths:
+          - nanobot/channels/
+
+  - id: api-and-websocket
+    name: API And WebSocket
+    summary: OpenAI-compatible HTTP API, SSE streaming, file upload, WebSocket channel, and WebUI client contracts.
+    slices:
+      - id: api-server
+        summary: API routes, streaming envelopes, uploads, session endpoints, and OpenAI-compatible behavior.
+        owns:
+          - OpenAI-compatible HTTP routes, SSE streaming envelopes, uploads, and session endpoints.
+          - WebSocket channel server-side contract and attachment handling.
+        route_here_when: Work changes HTTP/WebSocket contracts, SSE output, attachment handling, or API auth/compatibility.
+        bridge_when: WebUI client, channel WebSocket, or runtime output changes.
+        primary_paths:
+          - nanobot/api/server.py
+          - nanobot/channels/websocket.py
+      - id: client-contract
+        summary: WebUI client library and streaming hooks consuming nanobot API contracts.
+        owns:
+          - WebUI client transport wrappers for API, streaming, sessions, and uploads.
+          - Client-side parsing of nanobot stream/session contracts.
+        route_here_when: Work changes WebUI-side transport, stream parsing, session fetching, or attachment upload.
+        bridge_when: API server behavior changes.
+        primary_paths:
+          - webui/src/lib/nanobot-client.ts
+          - webui/src/lib/api.ts
+          - webui/src/hooks/useNanobotStream.ts
+          - webui/src/hooks/useSessions.ts
+
+  - id: webui
+    name: WebUI
+    summary: React/Vite/Tailwind chat UI, components, hooks, i18n, media handling, and frontend tests.
+    slices:
+      - id: shell
+        summary: App root, provider setup, global styles, theme, and layout.
+        owns:
+          - WebUI root app bootstrap, providers, global CSS, theme, and layout frame.
+          - High-level composition of chat list, active chat pane, and application chrome.
+        route_here_when: Work changes WebUI app bootstrap, layout, global styling, or theme behavior.
+        bridge_when: Client contract or component state changes.
+        primary_paths:
+          - webui/src/App.tsx
+          - webui/src/main.tsx
+          - webui/src/providers/
+          - webui/src/globals.css
+      - id: chat-components
+        summary: Sidebar, chat panes, composer, message list, rendering, dialogs, badges, and image lightbox.
+        owns:
+          - Chat UI components including sidebar, composer, message list, message rendering, dialogs, and badges.
+          - Visible user interaction states for message composition, attachments, deletion, and image viewing.
+        route_here_when: Work changes visible chat UI behavior or component interaction.
+        bridge_when: API streaming, media encoding, or session state changes.
+        primary_paths:
+          - webui/src/components/
+      - id: client-state
+        summary: Hooks, lib helpers, i18n, image worker, media handling, and WebUI tests.
+        owns:
+          - Client hooks, helper libraries, i18n setup, media encoding, and worker behavior.
+          - Frontend tests that verify WebUI sessions, streaming, i18n, and component integration.
+        route_here_when: Work changes sessions, streaming, attached images, i18n, formatting, or client helpers.
+        bridge_when: Server contract changes.
+        primary_paths:
+          - webui/src/hooks/
+          - webui/src/lib/
+          - webui/src/i18n/
+          - webui/src/workers/
+          - webui/src/tests/
+
+  - id: bridge-service
+    name: Bridge Service
+    summary: TypeScript bridge service and WhatsApp bridge packaging that is bundled into the Python distribution.
+    slices:
+      - id: bridge-runtime
+        summary: Bridge server, entrypoint, types, and WhatsApp adapter.
+        owns:
+          - TypeScript bridge server, entrypoint, shared types, and WhatsApp adapter.
+          - Bridge packaging surface consumed by the Python wheel.
+        route_here_when: Work changes bridge process behavior, bridge API, or WhatsApp transport.
+        bridge_when: Python packaging or channel contracts change.
+        primary_paths:
+          - bridge/src/
+          - bridge/package.json
+          - bridge/tsconfig.json
+
+  - id: persistence-and-memory
+    name: Persistence And Memory
+    summary: Session history, memory store, git-backed storage, compaction, document parsing, and persistent task state.
+    slices:
+      - id: session-memory
+        summary: Session manager, memory, compaction, gitstore, and persistence utilities.
+        owns:
+          - Session history, memory store, compaction, and git-backed persistence behavior.
+          - Document parsing and persisted runtime artifact helpers.
+        route_here_when: Work changes session history, memory retrieval/storage, compaction, or persisted artifacts.
+        bridge_when: Runtime loop, provider context, API session endpoints, or tests change.
+        primary_paths:
+          - nanobot/session/
+          - nanobot/agent/memory.py
+          - nanobot/agent/autocompact.py
+          - nanobot/utils/gitstore.py
+          - nanobot/utils/document.py
+
+  - id: security-and-tools
+    name: Security And Tools
+    summary: Network guardrails, path handling, shell/filesystem/tool behavior, web fetch/search safety, and validation tests.
+    slices:
+      - id: security
+        summary: Network and path guardrails plus tests for tool execution and external access.
+        owns:
+          - Network, filesystem, path, sandbox, and tool execution guardrails.
+          - Security/tool regression tests for command execution, file access, web fetch, and validation.
+        route_here_when: Work changes sandbox, command execution, file access, web fetch, tool validation, or network restrictions.
+        bridge_when: Runtime, CLI, or provider code begins relying on new trust boundaries.
+        primary_paths:
+          - nanobot/security/
+          - nanobot/utils/path.py
+          - tests/security/
+          - tests/tools/
+
+  - id: docs-and-deployment
+    name: Docs And Deployment
+    summary: Documentation, README assets, deployment guides, Docker, quick start, and operational guides.
+    slices:
+      - id: docs
+        summary: Markdown docs and README-facing documentation.
+        owns:
+          - User-facing documentation, README guidance, API/channel/CLI guides, and contribution/security docs.
+          - Documentation examples that explain current product behavior.
+        route_here_when: Work changes user docs, CLI docs, API docs, channel guides, deployment guides, or examples.
+        bridge_when: Documentation describes behavior that code does not yet implement.
+        primary_paths:
+          - docs/
+          - README.md
+          - COMMUNICATION.md
+          - CONTRIBUTING.md
+          - SECURITY.md
+      - id: deployment
+        summary: Docker image, compose config, entrypoint, and deployment packaging notes.
+        owns:
+          - Docker image, compose file, shell entrypoint, and operational deployment docs.
+          - Deployment-facing configuration and packaging behavior.
+        route_here_when: Work changes container behavior or deployment instructions.
+        bridge_when: Runtime config, CLI, or package metadata changes.
+        primary_paths:
+          - Dockerfile
+          - docker-compose.yml
+          - entrypoint.sh
+          - docs/deployment.md
