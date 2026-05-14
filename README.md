@@ -16,33 +16,34 @@ python3 -m http.server 8080
 
 ## 📖 内容导航
 
-| 章节 | 关键内容 | 状态 |
-| --- | --- | --- |
-| 前言 | 学习库目标、适合读者、如何使用本仓库 | ⏳ |
-| <strong>第一部分：环境与 Agent 基础</strong> |  |  |
-| 第一章 [筑基](./第一章-筑基/第一章-筑基.md) | IDE + Agent + 更多工具 | ⏳ |
-| <strong>第二部分：Agent 能力构建</strong> |  |  |
-| 第二章 [Skills 机制与可复用能力封装](./第二章-Skills/第二章-Skills.md) | 什么是 skill、如何组织、安装、调用、维护 | ✅ |
-| 第三章 [MCP 与 CLI 基础](./第三章-MCP-CLI/第三章-MCP-CLI.md) | MCP 原理、CLI 工具接入与调试 | ✅ |
-| <strong>第三部分：Agent 框架实践</strong> |  |  |
-| 第四章 [轻量 Agent 框架入门：Nanobot](./第四章-轻量-Agent-框架入门/第四章-轻量-Agent-框架入门.md) | 轻量框架结构、最小可运行 Agent、适合入门的骨架 | ⏳ |
-| 第五章 OpenClaw 实践 | 自托管、网关、渠道接入、常驻个人 Agent 思路 | ⏳ |
-| 第六章 Hermes Agent 实践 | 学习型 Agent、skills、memory、长期运行机制 | ⏳ |
-| 第七章 框架横向对比与选型 | Nanobot / OpenClaw / Hermes Agent 的定位与差异 | ⏳ |
-| <strong>第四部分：记忆、科研与系统分析</strong> |  |  |
-| 第八章 Agent Memory 机制 | 短期记忆、长期记忆、检索记忆、用户建模 | ⏳ |
-| 第九章 知识库与系统分析 | WikiLLM、知识组织、上下文管理、系统拆解方法 | ⏳ |
-| 第十章 Agent 安全与风险分析 | Prompt Injection、工具滥用、数据泄露、权限边界 | ⏳ |
-| 第十一章 Agent 代码漏洞挖掘落地应用 | 调用流、逆向、漏洞发现…… | ⏳ |
-| <strong>第五部分：应用与开发实践</strong> |  |  |
-| 第十二章 Agent/IDE 驱动的 App 开发 | 用 Agent 辅助搭建应用、修改项目、调试和迭代 | ⏳ |
-| 第十三章 从 Demo 到可维护项目 | 项目结构、文档、版本控制、多人协作基本规范 | ⏳ |
-| <strong>第六部分：项目级协同与 ProtoCodeBase</strong> |  |  |
-| 第十四章 ProtoCodeBase | 项目级协同目标、源码说明书、Agent 接管逻辑 | ⏳ |
-| 第十五章 面向社区的项目网站与知识沉淀 | 教程仓库、展示网站、文档系统、持续更新机制 | ⏳ |
-| 第十六章 协议 + Agent + CLI 协同 | 项目协议、命令行入口、Agent 执行链的结合 | ⏳ |
-| <strong>末了杂谈</strong> |  |  |
-| [从执行力时代到调度力时代：智能体带来的范式变革](./末了杂谈/从执行力时代到调度力时代-智能体带来的范式变革.md) | 关于 Agent 时代下从执行者到调度者的角色跃迁 | ✅ |
+| 章节 | 章节名 | 关键内容 | 状态 |
+| --- | --- | --- | --- |
+| 前言 | [学习库目标](./前言/学习库目标.md) | 适合读者、如何使用本仓库 | ⏳ |
+| <strong>第一部分</strong> | <strong>环境与 Agent 基础</strong> |  |  |
+| 第一章 | [筑基](./第一章-筑基/第一章-筑基.md) | IDE + Agent + 更多工具 | ⏳ |
+| <strong>第二部分</strong> | <strong>Agent 能力构建</strong> |  |  |
+| 第二章 | [Skills 机制与可复用能力封装](./第二章-Skills/第二章-Skills.md) | 什么是 skill、如何组织、安装、调用、维护 | ✅ |
+| 第三章 | [MCP 与 CLI 基础](./第三章-MCP-CLI/第三章-MCP-CLI.md) | MCP 原理、CLI 工具接入与调试 | ✅ |
+| <strong>第三部分</strong> | <strong>Agent 框架实践</strong> |  |  |
+| 第四章 | [轻量 Agent 框架入门：Nanobot](./第四章-轻量-Agent-框架入门/第四章-轻量-Agent-框架入门.md) | 轻量框架结构、最小可运行 Agent、适合入门的骨架 | ✅ |
+| 第五章 | OpenClaw 实践 | 自托管、网关、渠道接入、常驻个人 Agent 思路 | ⏳ |
+| 第六章 | Hermes Agent 实践 | 学习型 Agent、skills、memory、长期运行机制 | ⏳ |
+| 第七章 | 框架横向对比与选型 | Nanobot / OpenClaw / Hermes Agent 的定位与差异 | ⏳ |
+| <strong>第四部分</strong> | <strong>记忆、科研与系统分析</strong> |  |  |
+| 第八章 | Agent Memory 机制 | 短期记忆、长期记忆、检索记忆、用户建模 | ⏳ |
+| 第九章 | 知识库与系统分析 | WikiLLM、知识组织、上下文管理、系统拆解方法 | ⏳ |
+| 第十章 | 多智能体记忆管理 | WikiLLM、知识组织、上下文管理、系统拆解方法 | ⏳ |
+| 第十章 | Agent 安全与风险分析 | Prompt Injection、工具滥用、数据泄露、权限边界 | ⏳ |
+| 第十一章 | Agent 代码漏洞挖掘落地应用 | 调用流、逆向、漏洞发现…… | ⏳ |
+| <strong>第五部分</strong> | <strong>应用与开发实践</strong> |  |  |
+| 第十二章 | Agent/IDE 驱动的 App 开发 | 用 Agent 辅助搭建应用、修改项目、调试和迭代 | ⏳ |
+| 第十三章 | 从 Demo 到可维护项目 | 项目结构、文档、版本控制、多人协作基本规范 | ⏳ |
+| <strong>第六部分</strong> | <strong>项目级协同与 ProtoCodeBase</strong> |  |  |
+| 第十四章 | [ProtoCodeBase](./ProtoCodeBase/ProtoCodeBase.md) | 项目级协同目标、源码说明书、Agent 接管逻辑 | ✅ |
+| 第十五章 | 面向社区的项目网站与知识沉淀 | 教程仓库、展示网站、文档系统、持续更新机制 | ⏳ |
+| 第十六章 | 协议 + Agent + CLI 协同 | 项目协议、命令行入口、Agent 执行链的结合 | ⏳ |
+| <strong>末了杂谈</strong> |  |  |  |
+| — | [从执行力时代到调度力时代：智能体带来的范式变革](./末了杂谈/从执行力时代到调度力时代-智能体带来的范式变革.md) | 关于 Agent 时代下从执行者到调度者的角色跃迁 | ✅ |
 
 ## 🙌 致谢贡献者
 

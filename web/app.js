@@ -1,5 +1,11 @@
 const chapters = [
   {
+    id: "preface-goals",
+    title: "前言 学习库目标",
+    subtitle: "适合读者、使用方式与实践项目",
+    sourcePath: "前言/学习库目标.md"
+  },
+  {
     id: "chapter-foundation",
     title: "第一章 筑基",
     subtitle: "IDE + Agent + 更多工具",
@@ -22,6 +28,12 @@ const chapters = [
     title: "第四章 轻量 Agent 框架入门",
     subtitle: "Nanobot 精读：从 LLM 到 Agent Runtime",
     sourcePath: "第四章-轻量-Agent-框架入门/第四章-轻量-Agent-框架入门.md"
+  },
+  {
+    id: "chapter-protocodebase",
+    title: "第十四章 ProtoCodeBase",
+    subtitle: "项目级协同、ACP 协议与 Agent 接管逻辑",
+    sourcePath: "ProtoCodeBase/ProtoCodeBase.md"
   },
   {
     id: "essay-epilogue",
@@ -50,8 +62,8 @@ let contentVisible = false;
 const markdownCache = new Map();
 const outlineCache = new Map();
 const expandedChapters = new Set();
-const repoOwner = "OhMyYuwan";
-const repoName = "AgentGO";
+const repoUrl = document.body.dataset.repoUrl;
+const repoPath = new URL(repoUrl).pathname.replace(/^\/|\/$/g, "");
 const contentBase = location.pathname.includes("/web/") ? "../" : "./";
 const bannerPath = `${contentBase}assets/github-header-banner.png`;
 const codeFencePattern = /^\s*```(?:[A-Za-z0-9_-]+)?\s*$/;
@@ -59,6 +71,11 @@ const codeFencePattern = /^\s*```(?:[A-Za-z0-9_-]+)?\s*$/;
 if (bannerImage) {
   bannerImage.src = bannerPath;
 }
+
+document.querySelectorAll("[data-repo-link]").forEach((link) => {
+  const suffix = link.dataset.repoLink;
+  link.href = suffix ? `${repoUrl}/${suffix}` : repoUrl;
+});
 
 function escapeHtml(value) {
   return value
@@ -107,7 +124,7 @@ function parseLastPage(linkHeader) {
 
 async function loadProjectStats() {
   try {
-    const repoResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}`);
+    const repoResponse = await fetch(`https://api.github.com/repos/${repoPath}`);
     if (!repoResponse.ok) throw new Error("repo stats unavailable");
 
     const repo = await repoResponse.json();
@@ -122,7 +139,7 @@ async function loadProjectStats() {
 
   try {
     const contributorsResponse = await fetch(
-      `https://api.github.com/repos/${repoOwner}/${repoName}/contributors?per_page=1&anon=1`
+      `https://api.github.com/repos/${repoPath}/contributors?per_page=1&anon=1`
     );
     if (!contributorsResponse.ok) throw new Error("contributors unavailable");
     const contributorsLink = contributorsResponse.headers.get("Link");

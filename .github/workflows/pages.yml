@@ -35,10 +35,12 @@ jobs:
           cp -R web/. _site/
           cp README.md _site/
           cp -R assets _site/
+          cp -R "前言" _site/
           cp -R "第一章-筑基" _site/
           cp -R "第二章-Skills" _site/
           cp -R "第三章-MCP-CLI" _site/
           cp -R "第四章-轻量-Agent-框架入门" _site/
+          cp -R "ProtoCodeBase" _site/
           cp -R "末了杂谈" _site/
           touch _site/.nojekyll
 
