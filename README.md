@@ -27,9 +27,9 @@ python3 -m http.server 8080
 | <strong>第三部分</strong> | <strong>Agent 框架实践</strong> |  |  |
 | 第四章 | [轻量 Agent 框架入门：Nanobot](./第四章-轻量-Agent-框架入门/第四章-轻量-Agent-框架入门.md) | 轻量框架结构、适合入门的骨架 | ✅ |
 | 第五章 | [极简主义的 Agent 框架：Pi](./PI-极简主义的-Agent-框架/PI.md) | 极简终端 coding harness、Agent loop、资源扩展系统、 万物皆 Coding、最小可运行 Agent | ✅ |
-| 第六章 | OpenClaw 实践 | 自托管、网关、渠道接入、常驻个人 Agent 思路 | ⏳ |
-| 第七章 | Hermes Agent 实践 | 学习型 Agent、skills、memory、长期运行机制 | ⏳ |
-| 第八章 | 框架横向对比与选型 | PI / Nanobot / OpenClaw / Hermes Agent 的定位与差异 | ⏳ |
+| 第六章 | [OpenClaw 实践](./第五章-OpenClaw-实践/第五章-OpenClaw-实践.md) | 自托管、网关、渠道接入、常驻个人 Agent 思路 | ✅ |
+| 第七章 | [Hermes Agent 实践](./Hermes-Agent-实践/Hermes-Agent.md) | 学习型 Agent、skills、memory、长期运行机制 | ✅ |
+| 第八章 | [框架横向对比与选型](./第八章-框架横向对比与选型/第八章-框架横向对比与选型.md) | PI / Nanobot / OpenClaw / Hermes Agent 的定位与差异 | ✅ |
 | <strong>第四部分</strong> | <strong>记忆、科研与系统分析</strong> |  |  |
 | 第九章 | [Agent Memory 机制](./第九章-Agent-Memory/Agent_Memory.md) | 短期记忆、长期记忆、检索记忆、用户建模 | ✅ |
 | 第十章 | 知识库与系统分析 | WikiLLM、知识组织、上下文管理、系统拆解方法 | ⏳ |

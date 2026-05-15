@@ -36,6 +36,24 @@ const chapters = [
     sourcePath: "PI-极简主义的-Agent-框架/PI.md"
   },
   {
+    id: "chapter-openclaw-practice",
+    title: "第六章 OpenClaw 实践",
+    subtitle: "本地优先 Gateway、多渠道接入、常驻个人 Agent 系统",
+    sourcePath: "第五章-OpenClaw-实践/第五章-OpenClaw-实践.md"
+  },
+  {
+    id: "chapter-hermes-agent",
+    title: "第七章 Hermes Agent 实践",
+    subtitle: "学习型 Agent、skills、memory、长期运行机制",
+    sourcePath: "Hermes-Agent-实践/Hermes-Agent.md"
+  },
+  {
+    id: "chapter-framework-comparison",
+    title: "第八章 框架横向对比与选型",
+    subtitle: "PI / Nanobot / OpenClaw / Hermes Agent 的定位与差异",
+    sourcePath: "第八章-框架横向对比与选型/第八章-框架横向对比与选型.md"
+  },
+  {
     id: "chapter-agent-memory",
     title: "第九章 Agent Memory 机制",
     subtitle: "短期记忆、长期记忆、检索记忆、用户建模",
