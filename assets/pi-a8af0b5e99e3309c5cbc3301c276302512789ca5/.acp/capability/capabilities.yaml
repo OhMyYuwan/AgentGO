@@ -1,0 +1,177 @@
+capabilities:
+  - id: project.acp_bootstrap
+    title: ACP project bootstrap
+    summary: Minimum ACP kernel and support scaffolding for the pi monorepo.
+    status: active
+    semantic_targets:
+      - project_root
+    slices:
+      - id: _root
+        summary: Project-level ACP metadata, kernel objects, and support guidance.
+    modules:
+      - path: .acp/version.yaml
+      - path: .acp/kernel
+      - path: .acp/support
+
+  - id: project.routing.project_map
+    title: Monorepo routing metadata
+    summary: Declares root entry points, package boundaries, and semantic routing for the repository.
+    status: active
+    semantic_targets:
+      - project_root
+      - workspace_scripts
+      - workspace_packages
+    slices:
+      - id: _root
+        summary: Package-level map and load routing for future ACP-guided work.
+    modules:
+      - path: .acp/support/AGENT.md
+      - path: .acp/support/PROJECT_MAP.yaml
+      - path: .acp/support/LOAD_RULES.yaml
+      - path: .acp/support/CHANGE_POLICY.yaml
+
+  - id: workspace.packages
+    title: Workspace package catalog
+    summary: Root workspace orchestration and the five primary package surfaces.
+    status: active
+    semantic_targets:
+      - workspace_packages
+      - workspace_scripts
+    slices:
+      - id: root_orchestration
+        summary: Root workspace manifests, scripts, and validation entry points.
+      - id: package_boundaries
+        summary: Package-level public surfaces and high-level responsibilities.
+    modules:
+      - path: package.json
+      - path: README.md
+      - path: AGENTS.md
+      - path: scripts
+      - path: packages/ai
+      - path: packages/agent
+      - path: packages/coding-agent
+      - path: packages/tui
+      - path: packages/web-ui
+
+  - id: ai.unified_provider_api
+    title: Unified provider and model API
+    summary: LLM provider registry, model metadata, streaming APIs, OAuth helpers, and provider implementations.
+    status: active
+    semantic_targets:
+      - ai_api
+      - provider_registry
+      - model_registry
+    slices:
+      - id: public_api
+        summary: Main exports and public type surface.
+      - id: provider_runtime
+        summary: Provider implementations, registration, and request streaming.
+    modules:
+      - path: packages/ai/src/index.ts
+      - path: packages/ai/src/models.ts
+      - path: packages/ai/src/stream.ts
+      - path: packages/ai/src/types.ts
+      - path: packages/ai/src/providers
+
+  - id: agent.runtime_core
+    title: Agent loop and harness core
+    summary: Stateful agent runtime, event loop, tool execution, compaction, and session helpers.
+    status: active
+    semantic_targets:
+      - agent_runtime
+      - tool_execution
+      - session_repo
+    slices:
+      - id: loop_execution
+        summary: Assistant turn loop, tool execution flow, and event sequencing.
+        support_doc: .acp/support/slices/agent_loop_execution.md
+      - id: harness_support
+        summary: High-level Agent wrapper state, queues, abort lifecycle, and listener coordination.
+        support_doc: .acp/support/slices/agent_state_and_queues.md
+    modules:
+      - path: packages/agent/src/index.ts
+      - path: packages/agent/src/agent.ts
+      - path: packages/agent/src/agent-loop.ts
+      - path: packages/agent/src/harness
+      - path: packages/agent/src/types.ts
+
+  - id: coding_agent.runtime
+    title: Coding agent application runtime
+    summary: CLI bootstrap, session wiring, user modes, auth guidance, and execution plumbing for pi.
+    status: active
+    semantic_targets:
+      - coding_agent_runtime
+      - coding_agent_cli
+      - coding_agent_modes
+    slices:
+      - id: cli_bootstrap
+        summary: CLI executable entry and main application startup.
+        support_doc: .acp/support/slices/coding_agent_cli_bootstrap.md
+      - id: session_runtime
+        summary: Session services, model resolution, execution, and mode wiring.
+    modules:
+      - path: packages/coding-agent/src/cli.ts
+      - path: packages/coding-agent/src/main.ts
+      - path: packages/coding-agent/src/cli
+      - path: packages/coding-agent/src/core
+      - path: packages/coding-agent/src/modes
+
+  - id: coding_agent.resources
+    title: Coding agent resources and customization
+    summary: Project/user resource loading for AGENTS files, skills, prompt templates, themes, extensions, and local pi assets.
+    status: active
+    semantic_targets:
+      - coding_agent_resources
+      - pi_local_resources
+    slices:
+      - id: resource_discovery
+        summary: Discovers and merges local/project/user resources into the runtime.
+        support_doc: .acp/support/slices/coding_agent_resource_discovery.md
+      - id: local_pi_assets
+        summary: Repository-local `.pi` prompts, extensions, and helper assets.
+    modules:
+      - path: packages/coding-agent/src/core/resource-loader.ts
+      - path: packages/coding-agent/src/core/skills.ts
+      - path: packages/coding-agent/src/core/prompt-templates.ts
+      - path: packages/coding-agent/src/core/extensions
+      - path: .pi
+
+  - id: tui.terminal_ui
+    title: Terminal UI primitives
+    summary: Differential terminal rendering, editor/input components, overlays, keybindings, and terminal image support.
+    status: active
+    semantic_targets:
+      - terminal_ui
+      - keybinding_runtime
+    slices:
+      - id: rendering_core
+        summary: TUI container, rendering lifecycle, focus, and overlays.
+      - id: input_components
+        summary: Editor/input widgets and keyboard handling.
+    modules:
+      - path: packages/tui/src/index.ts
+      - path: packages/tui/src/tui.ts
+      - path: packages/tui/src/terminal.ts
+      - path: packages/tui/src/components
+      - path: packages/tui/src/keybindings.ts
+
+  - id: web_ui.chat_surface
+    title: Browser chat surface
+    summary: Web chat components, dialogs, storage, artifacts, and browser-oriented tool renderers.
+    status: active
+    semantic_targets:
+      - web_chat_ui
+      - browser_storage
+      - artifact_rendering
+    slices:
+      - id: component_surface
+        summary: Public web UI exports and chat panel/component tree.
+      - id: browser_runtime
+        summary: Storage backends, dialogs, sandbox/artifact runtime, and browser tools.
+    modules:
+      - path: packages/web-ui/src/index.ts
+      - path: packages/web-ui/src/ChatPanel.ts
+      - path: packages/web-ui/src/components
+      - path: packages/web-ui/src/dialogs
+      - path: packages/web-ui/src/storage
+      - path: packages/web-ui/src/tools

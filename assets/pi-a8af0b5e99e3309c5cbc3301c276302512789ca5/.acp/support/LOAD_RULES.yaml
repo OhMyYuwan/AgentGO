@@ -1,0 +1,145 @@
+load_rules:
+  - when:
+      capability: project.acp_bootstrap
+    load:
+      - .acp/support/AGENT.md
+      - .acp/support/PROJECT_MAP.yaml
+      - .acp/support/LOAD_RULES.yaml
+      - .acp/support/CHANGE_POLICY.yaml
+      - .acp/capability/capabilities.yaml
+      - .acp/version.yaml
+
+  - when:
+      capability: project.routing.project_map
+    load:
+      - .acp/support/PROJECT_MAP.yaml
+      - .acp/capability/capabilities.yaml
+      - package.json
+      - README.md
+      - AGENTS.md
+
+  - when:
+      capability: workspace.packages
+    load:
+      - .acp/support/PROJECT_MAP.yaml
+      - package.json
+      - packages/ai/README.md
+      - packages/agent/README.md
+      - packages/coding-agent/README.md
+      - packages/tui/README.md
+      - packages/web-ui/README.md
+
+  - when:
+      capability: ai.unified_provider_api
+    load:
+      - .acp/support/PROJECT_MAP.yaml
+      - packages/ai/README.md
+      - packages/ai/package.json
+      - packages/ai/src/index.ts
+      - packages/ai/src/models.ts
+      - packages/ai/src/stream.ts
+      - packages/ai/src/types.ts
+
+  - when:
+      capability: agent.runtime_core
+    load:
+      - .acp/support/PROJECT_MAP.yaml
+      - packages/agent/README.md
+      - packages/agent/package.json
+      - packages/agent/src/index.ts
+      - packages/agent/src/agent.ts
+      - packages/agent/src/agent-loop.ts
+      - packages/agent/src/types.ts
+      - .acp/support/slices/agent_loop_execution.md
+      - .acp/support/slices/agent_state_and_queues.md
+
+  - when:
+      capability: coding_agent.runtime
+    load:
+      - .acp/support/PROJECT_MAP.yaml
+      - packages/coding-agent/README.md
+      - packages/coding-agent/package.json
+      - packages/coding-agent/src/cli.ts
+      - packages/coding-agent/src/main.ts
+      - packages/coding-agent/src/core
+      - .acp/support/slices/coding_agent_cli_bootstrap.md
+
+  - when:
+      capability: coding_agent.resources
+    load:
+      - .acp/support/PROJECT_MAP.yaml
+      - packages/coding-agent/src/core/resource-loader.ts
+      - packages/coding-agent/src/core/skills.ts
+      - packages/coding-agent/src/core/prompt-templates.ts
+      - .pi
+      - .acp/support/slices/coding_agent_resource_discovery.md
+
+  - when:
+      capability: tui.terminal_ui
+    load:
+      - .acp/support/PROJECT_MAP.yaml
+      - packages/tui/README.md
+      - packages/tui/package.json
+      - packages/tui/src/index.ts
+      - packages/tui/src/tui.ts
+      - packages/tui/src/terminal.ts
+      - packages/tui/src/components
+
+  - when:
+      capability: web_ui.chat_surface
+    load:
+      - .acp/support/PROJECT_MAP.yaml
+      - packages/web-ui/README.md
+      - packages/web-ui/package.json
+      - packages/web-ui/src/index.ts
+      - packages/web-ui/src/ChatPanel.ts
+      - packages/web-ui/src/components
+      - packages/web-ui/src/dialogs
+      - packages/web-ui/src/storage
+      - packages/web-ui/src/tools
+
+  - when:
+      target_id: project_root
+    load:
+      - package.json
+      - README.md
+      - AGENTS.md
+      - .acp/support/PROJECT_MAP.yaml
+
+  - when:
+      target_id: pi_local_resources
+    load:
+      - .pi
+      - packages/coding-agent/src/core/resource-loader.ts
+      - .acp/support/PROJECT_MAP.yaml
+
+  - when:
+      target_slice: cli_bootstrap
+    load:
+      - .acp/support/slices/coding_agent_cli_bootstrap.md
+      - packages/coding-agent/src/cli.ts
+      - packages/coding-agent/src/main.ts
+      - packages/coding-agent/src/cli/args.ts
+
+  - when:
+      target_slice: resource_discovery
+    load:
+      - .acp/support/slices/coding_agent_resource_discovery.md
+      - packages/coding-agent/src/core/resource-loader.ts
+      - packages/coding-agent/src/core/skills.ts
+      - packages/coding-agent/src/core/prompt-templates.ts
+      - .pi
+
+  - when:
+      target_slice: loop_execution
+    load:
+      - .acp/support/slices/agent_loop_execution.md
+      - packages/agent/src/agent-loop.ts
+      - packages/agent/src/types.ts
+
+  - when:
+      target_slice: harness_support
+    load:
+      - .acp/support/slices/agent_state_and_queues.md
+      - packages/agent/src/agent.ts
+      - packages/agent/src/agent-loop.ts

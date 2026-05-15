@@ -1168,7 +1168,7 @@ nanobot/heartbeat/service.py
 # 本周作业
 - 解析 Nanobot 并增加任意一个功能。
   - 给你的 CodeAgent 安装 [ProtoCodeBase](https://github.com/OhMyYuwan/ProtoCodeBase.Skill) 任意协议解析Skill，解析 Nanobot；想一想你需要什么功能呢，让你的 CodeAgent 添加一下这个功能，（你可以找找那个库实现了这个功能，然后用 ProtoCodeBase 解析一下它，然后让 CodeAgent 参照这个功能对 Nanobot 进行修改）。
-  - 我们提供了一个 ACP 协议解析 Nanobot（commit [`73a8d8a`](https://github.com/HKUDS/nanobot/commit/73a8d8a8755aa5af422d3217c281f795580bb4b2)）后的文档在 [assets/Nanobot/](assets/Nanobot/) 文件夹下。
+  - 我们提供了一个 ACP 协议解析 Nanobot（commit [`73a8d8a`](https://github.com/HKUDS/nanobot/commit/73a8d8a8755aa5af422d3217c281f795580bb4b2)）后的文档在 [assets/Nanobot/](../assets/Nanobot-73a8d8a8755aa5af422d3217c281f795580bb4b2/AGENTS.md) 文件夹下。
 
 ----
 

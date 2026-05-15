@@ -1,0 +1,133 @@
+project:
+  id: pi-monorepo
+  summary: >
+    TypeScript monorepo for a coding-agent stack spanning unified provider APIs,
+    agent runtime, terminal UI, browser UI, and a customizable end-user coding
+    agent CLI.
+
+entry_points:
+  - path: package.json
+    role: root workspace manifest, scripts, and package orchestration
+  - path: README.md
+    role: root package index and monorepo overview
+  - path: AGENTS.md
+    role: repository-specific engineering rules and validation constraints
+  - path: packages/coding-agent/src/cli.ts
+    role: Node CLI executable entry for the coding agent
+  - path: packages/coding-agent/src/main.ts
+    role: coding-agent application bootstrap and mode selection
+
+semantic_map:
+  workspace.root:
+    modules:
+      - package.json
+      - README.md
+      - AGENTS.md
+      - tsconfig.json
+      - tsconfig.base.json
+      - biome.json
+      - test.sh
+      - pi-test.sh
+    notes:
+      - Root scripts coordinate build, check, release, and multi-package development.
+      - `AGENTS.md` imposes repository rules that should be loaded before mutating code.
+
+  workspace.scripts:
+    modules:
+      - scripts
+      - test.sh
+      - pi-test.sh
+    notes:
+      - Root scripts support profiling, release, stats, browser smoke checks, and local test entry points.
+
+  workspace.packages:
+    modules:
+      - packages/ai
+      - packages/agent
+      - packages/coding-agent
+      - packages/tui
+      - packages/web-ui
+    notes:
+      - Each first-level package is a publishable or reusable surface with its own README and package manifest.
+
+  ai.unified_provider_api:
+    modules:
+      - packages/ai/src/index.ts
+      - packages/ai/src/models.ts
+      - packages/ai/src/stream.ts
+      - packages/ai/src/types.ts
+      - packages/ai/src/providers
+      - packages/ai/src/utils
+    notes:
+      - Provides model lookup, streaming/completion APIs, provider registration, OAuth support, and shared validation utilities.
+      - `models.generated.ts` and `image-models.generated.ts` are generated artifacts and should be treated accordingly.
+
+  agent.runtime_core:
+    modules:
+      - packages/agent/src/index.ts
+      - packages/agent/src/agent.ts
+      - packages/agent/src/agent-loop.ts
+      - packages/agent/src/types.ts
+      - packages/agent/src/harness
+    notes:
+      - Implements the evented agent loop, tool execution flow, message conversion, compaction, session repositories, and harness helpers.
+    slices:
+      loop_execution: .acp/support/slices/agent_loop_execution.md
+      harness_support: .acp/support/slices/agent_state_and_queues.md
+
+  coding_agent.runtime:
+    modules:
+      - packages/coding-agent/src/cli.ts
+      - packages/coding-agent/src/main.ts
+      - packages/coding-agent/src/core
+      - packages/coding-agent/src/cli
+      - packages/coding-agent/src/modes
+      - packages/coding-agent/src/utils
+    notes:
+      - Owns the end-user CLI, interactive/print/RPC modes, agent session wiring, model resolution, auth guidance, and execution plumbing.
+    slices:
+      cli_bootstrap: .acp/support/slices/coding_agent_cli_bootstrap.md
+
+  coding_agent.resources:
+    modules:
+      - packages/coding-agent/src/core/resource-loader.ts
+      - packages/coding-agent/src/core/skills.ts
+      - packages/coding-agent/src/core/prompt-templates.ts
+      - packages/coding-agent/src/core/extensions
+      - .pi
+    notes:
+      - Loads AGENTS files, skills, prompt templates, themes, and extensions from project and user-local sources.
+      - `.pi/` holds repository-local pi prompts/extensions and is part of the runtime customization surface.
+    slices:
+      resource_discovery: .acp/support/slices/coding_agent_resource_discovery.md
+
+  tui.terminal_ui:
+    modules:
+      - packages/tui/src/index.ts
+      - packages/tui/src/tui.ts
+      - packages/tui/src/terminal.ts
+      - packages/tui/src/components
+      - packages/tui/src/keybindings.ts
+    notes:
+      - Provides terminal rendering, focus/overlay management, editor/input components, keyboard parsing, and image support.
+
+  web_ui.chat_surface:
+    modules:
+      - packages/web-ui/src/index.ts
+      - packages/web-ui/src/ChatPanel.ts
+      - packages/web-ui/src/components
+      - packages/web-ui/src/dialogs
+      - packages/web-ui/src/storage
+      - packages/web-ui/src/tools
+      - packages/web-ui/example
+    notes:
+      - Exposes browser-facing chat components, storage backends, tool renderers, dialogs, and an example app surface.
+
+analysis_focus:
+  package_routing:
+    primary_modules:
+      - .acp/support/PROJECT_MAP.yaml
+      - .acp/support/LOAD_RULES.yaml
+      - .acp/capability/capabilities.yaml
+    caution:
+      - Route by semantic surface first, then read package entry files before opening deep implementation files.

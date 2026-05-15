@@ -40,6 +40,7 @@ jobs:
           cp -R "第二章-Skills" _site/
           cp -R "第三章-MCP-CLI" _site/
           cp -R "第四章-轻量-Agent-框架入门" _site/
+          cp -R "PI-极简主义的-Agent-框架" _site/
           cp -R "ProtoCodeBase" _site/
           cp -R "末了杂谈" _site/
           touch _site/.nojekyll

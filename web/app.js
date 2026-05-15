@@ -30,6 +30,12 @@ const chapters = [
     sourcePath: "第四章-轻量-Agent-框架入门/第四章-轻量-Agent-框架入门.md"
   },
   {
+    id: "chapter-pi-minimal-agent",
+    title: "第五章 极简主义的 Agent 框架：Pi",
+    subtitle: "极简终端 coding harness、Agent loop、资源扩展系统",
+    sourcePath: "PI-极简主义的-Agent-框架/PI.md"
+  },
+  {
     id: "chapter-protocodebase",
     title: "第十四章 ProtoCodeBase",
     subtitle: "项目级协同、ACP 协议与 Agent 接管逻辑",

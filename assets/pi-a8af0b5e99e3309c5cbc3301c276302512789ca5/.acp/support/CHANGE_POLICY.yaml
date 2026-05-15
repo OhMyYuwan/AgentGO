@@ -1,0 +1,27 @@
+change_policy:
+  auto_allow:
+    - ".acp/**"
+    - "README.md"
+    - "packages/*/README.md"
+
+  require_confirmation:
+    - "package.json"
+    - "package-lock.json"
+    - "packages/*/package.json"
+    - "scripts/**"
+    - "test.sh"
+    - "pi-test.sh"
+
+  high_risk:
+    - "packages/coding-agent/src/core/**"
+    - "packages/agent/src/agent-loop.ts"
+    - "packages/ai/src/providers/**"
+    - "packages/tui/src/tui.ts"
+    - "packages/web-ui/src/storage/**"
+
+  forbidden:
+    - ".git/**"
+
+notes:
+  - The current ACP bootstrap change is expected to stay within `.acp/**`.
+  - Runtime/package mutations should follow the repository rules in `AGENTS.md`, including required validation commands.
