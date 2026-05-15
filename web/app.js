@@ -36,10 +36,22 @@ const chapters = [
     sourcePath: "PI-极简主义的-Agent-框架/PI.md"
   },
   {
+    id: "chapter-agent-memory",
+    title: "第九章 Agent Memory 机制",
+    subtitle: "短期记忆、长期记忆、检索记忆、用户建模",
+    sourcePath: "第九章-Agent-Memory/Agent_Memory.md"
+  },
+  {
     id: "chapter-protocodebase",
     title: "第十四章 ProtoCodeBase",
     subtitle: "项目级协同、ACP 协议与 Agent 接管逻辑",
     sourcePath: "ProtoCodeBase/ProtoCodeBase.md"
+  },
+  {
+    id: "chapter-protocol-agent-cli",
+    title: "第十八章 协议 + Agent + CLI 协同",
+    subtitle: "项目协议、命令行入口、Agent 执行链的结合",
+    sourcePath: "协议+Agent+CLI协同/协议+Agent+CLI协同.md"
   },
   {
     id: "essay-epilogue",

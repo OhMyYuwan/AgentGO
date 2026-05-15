@@ -1,5 +1,6 @@
 # 🧠 Agent Memory 体系全解析
 
+> [!NOTE] 
 > 理解 AI Agent 的记忆机制，是构建更智能、更个性化 Agent 的基础。
 > 本文拆解为：**短时记忆 → 长时记忆 → 两者配合 → 检索记忆 → 用户建模**
 > 
@@ -316,3 +317,21 @@ Agent 推断：用户是前端开发者，偏好 JavaScript 生态
 ---
 
 *参考资料：MemGPT (2023)、GraphRAG (Microsoft, 2024)、Generative Agents (Park et al., 2023)、LangChain Memory Docs*
+
+
+----
+
+<div align="center">
+  <table>
+    <tr>
+      <td width="720" style="border:1px solid #d0d7de; border-radius:18px; padding:22px; background:#f6f8fa;">
+        <h2 style="margin:0 0 10px 0;">致谢</h2>
+        <p style="margin:0 0 14px 0;">
+        @ling213 编写本章内容。
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+

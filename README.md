@@ -18,22 +18,22 @@ python3 -m http.server 8080
 
 | 章节 | 章节名 | 关键内容 | 状态 |
 | --- | --- | --- | --- |
-| 前言 | [学习库目标](./前言/学习库目标.md) | 适合读者、如何使用本仓库 | ⏳ |
+| 前言 | [学习库目标](./前言/学习库目标.md) | 适合哪些读者、如何使用教程 | ⏳ |
 | <strong>第一部分</strong> | <strong>环境与 Agent 基础</strong> |  |  |
 | 第一章 | [筑基](./第一章-筑基/第一章-筑基.md) | IDE + Agent + 更多工具 | ⏳ |
 | <strong>第二部分</strong> | <strong>Agent 能力构建</strong> |  |  |
 | 第二章 | [Skills 机制与可复用能力封装](./第二章-Skills/第二章-Skills.md) | 什么是 skill、如何组织、安装、调用、维护 | ✅ |
 | 第三章 | [MCP 与 CLI 基础](./第三章-MCP-CLI/第三章-MCP-CLI.md) | MCP 原理、CLI 工具接入与调试 | ✅ |
 | <strong>第三部分</strong> | <strong>Agent 框架实践</strong> |  |  |
-| 第四章 | [轻量 Agent 框架入门：Nanobot](./第四章-轻量-Agent-框架入门/第四章-轻量-Agent-框架入门.md) | 轻量框架结构、最小可运行 Agent、适合入门的骨架 | ✅ |
-| 第五章 | [极简主义的 Agent 框架：Pi](./PI-极简主义的-Agent-框架/PI.md) | 极简终端 coding harness、Agent loop、资源扩展系统、 万物皆 Coding | ✅ |
+| 第四章 | [轻量 Agent 框架入门：Nanobot](./第四章-轻量-Agent-框架入门/第四章-轻量-Agent-框架入门.md) | 轻量框架结构、适合入门的骨架 | ✅ |
+| 第五章 | [极简主义的 Agent 框架：Pi](./PI-极简主义的-Agent-框架/PI.md) | 极简终端 coding harness、Agent loop、资源扩展系统、 万物皆 Coding、最小可运行 Agent | ✅ |
 | 第六章 | OpenClaw 实践 | 自托管、网关、渠道接入、常驻个人 Agent 思路 | ⏳ |
 | 第七章 | Hermes Agent 实践 | 学习型 Agent、skills、memory、长期运行机制 | ⏳ |
 | 第八章 | 框架横向对比与选型 | PI / Nanobot / OpenClaw / Hermes Agent 的定位与差异 | ⏳ |
 | <strong>第四部分</strong> | <strong>记忆、科研与系统分析</strong> |  |  |
-| 第九章 | Agent Memory 机制 | 短期记忆、长期记忆、检索记忆、用户建模 | ⏳ |
+| 第九章 | [Agent Memory 机制](./第九章-Agent-Memory/Agent_Memory.md) | 短期记忆、长期记忆、检索记忆、用户建模 | ✅ |
 | 第十章 | 知识库与系统分析 | WikiLLM、知识组织、上下文管理、系统拆解方法 | ⏳ |
-| 第十一章 | 多智能体记忆管理 | WikiLLM、知识组织、上下文管理、系统拆解方法 | ⏳ |
+| 第十一章 | 多智能体记忆管理 | 如何构建一个 TEAM？ | ⏳ |
 | 第十二章 | Agent 安全与风险分析 | Prompt Injection、工具滥用、数据泄露、权限边界 | ⏳ |
 | 第十三章 | Agent 代码漏洞挖掘落地应用 | 调用流、逆向、漏洞发现…… | ⏳ |
 | <strong>第五部分</strong> | <strong>应用与开发实践</strong> |  |  |
