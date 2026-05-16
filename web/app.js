@@ -60,6 +60,12 @@ const chapters = [
     sourcePath: "第九章-Agent-Memory/Agent_Memory.md"
   },
   {
+    id: "chapter-knowledge-system-analysis",
+    title: "第十章 知识库与系统分析",
+    subtitle: "Agent 外部长期记忆与复杂项目认知地图",
+    sourcePath: "第十章-知识库与系统分析/第十章-知识库与系统分析.md"
+  },
+  {
     id: "chapter-protocodebase",
     title: "第十四章 ProtoCodeBase",
     subtitle: "项目级协同、ACP 协议与 Agent 接管逻辑",

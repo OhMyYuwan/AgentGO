@@ -45,6 +45,7 @@ jobs:
           cp -R "Hermes-Agent-实践" _site/
           cp -R "第八章-框架横向对比与选型" _site/
           cp -R "第九章-Agent-Memory" _site/
+          cp -R "第十章-知识库与系统分析" _site/
           cp -R "ProtoCodeBase" _site/
           cp -R "协议+Agent+CLI协同" _site/
           cp -R "末了杂谈" _site/

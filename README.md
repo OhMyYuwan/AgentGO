@@ -32,7 +32,7 @@ python3 -m http.server 8080
 | 第八章 | [框架横向对比与选型](./第八章-框架横向对比与选型/第八章-框架横向对比与选型.md) | PI / Nanobot / OpenClaw / Hermes Agent 的定位与差异 | ✅ |
 | <strong>第四部分</strong> | <strong>记忆、科研与系统分析</strong> |  |  |
 | 第九章 | [Agent Memory 机制](./第九章-Agent-Memory/Agent_Memory.md) | 短期记忆、长期记忆、检索记忆、用户建模 | ✅ |
-| 第十章 | 知识库与系统分析 | WikiLLM、知识组织、上下文管理、系统拆解方法 | ⏳ |
+| 第十章 | [知识库与系统分析](./第十章-知识库与系统分析/第十章-知识库与系统分析.md) | WikiLLM、知识组织、上下文管理、系统拆解方法 | ✅ |
 | 第十一章 | 多智能体记忆管理 | 如何构建一个 TEAM？ | ⏳ |
 | 第十二章 | Agent 安全与风险分析 | Prompt Injection、工具滥用、数据泄露、权限边界 | ⏳ |
 | 第十三章 | Agent 代码漏洞挖掘落地应用 | 调用流、逆向、漏洞发现…… | ⏳ |
