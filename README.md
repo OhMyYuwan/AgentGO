@@ -75,6 +75,13 @@ python3 -m http.server 8080
                     <sub><b>ling213</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/Jiang-xu-dong">
+                    <img src="https://avatars.githubusercontent.com/u/154988914?v=4" width="80;" alt="Jiang-xu-dong"/>
+                    <br />
+                    <sub><b>pixd</b></sub>
+                </a>
+            </td>
 		</tr>
 	<tbody>
 </table>
