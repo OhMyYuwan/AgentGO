@@ -48,10 +48,7 @@ python3 -m http.server 8080
 
 ## 🙌 致谢贡献者
 
-感谢每一位为 Agent GO! 投入时间、提交想法与代码的伙伴。
+感谢每一位为 Agent GO! 投入时间、提交想法与代码的伙伴。想加入名单？欢迎 Issue / PR。
 
-<a href="https://github.com/OhMyYuwan/AgentGO/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=OhMyYuwan/AgentGO" alt="AgentGO contributors" />
-</a>
-
-> 头像由 [contrib.rocks](https://contrib.rocks) 自动生成，随贡献记录实时更新。想加入名单？欢迎 Issue / PR。
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
